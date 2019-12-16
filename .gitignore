@@ -159,9 +159,6 @@ gradle-app.setting
 
 # End of https://www.gitignore.io/api/maven,gradle,intellij,visualstudiocode
 .project
-gradlew
-gradlew.bat
-settings.gradle
 .settings/org.eclipse.buildship.core.prefs
 .settings/org.eclipse.jdt.core.prefs
 .vscode/launch.json
@@ -170,5 +167,3 @@ settings.gradle
 .idea/compiler.xml
 .idea/misc.xml
 token
-gradle/gradle-wrapper.jar
-gradle/gradle-wrapper.properties
