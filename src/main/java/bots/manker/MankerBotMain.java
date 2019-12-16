@@ -1,5 +1,9 @@
 package bots.manker;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 
 import javax.security.auth.login.LoginException;
@@ -15,15 +19,20 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
  */
 public class MankerBotMain extends ListenerAdapter {
 
-    public void init() throws LoginException {
+    public void init() throws LoginException, IOException{
         JDABuilder builder = new JDABuilder(AccountType.BOT);
-        String token = "NjIxODEwMjk4NzgwNzc4NDk2.Xfejbw.G";
-        token += "GAyqHH8IK5ruWKigv";
-        token += "1KHuS9grU";
+        String token = getTokenFromFile();
         builder.setToken(token);
         builder.addEventListeners(new MankerBotMain());
-        builder.setActivity(Activity.playing("with anime tiddies"));
+        builder.setActivity(Activity.playing("with anime tiddies keyword = !manker"));
         builder.build();
+    }
+
+    private String getTokenFromFile() throws IOException {
+        File file = new File("token");
+        if (!file.exists()) throw new NullPointerException("Token file cannot be found!");
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        return reader.readLine().trim();
     }
 
     @Override
