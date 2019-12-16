@@ -1,3 +1,3 @@
-# manker-bot
+# discord-bot
 A discord bot used for testing purposes
-uses webhooks test
+uses webhooks 
