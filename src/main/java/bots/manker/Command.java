@@ -1,3 +1,5 @@
+package bots.manker;
+
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.io.File;
