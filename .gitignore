@@ -170,3 +170,5 @@ settings.gradle
 .idea/compiler.xml
 .idea/misc.xml
 token
+gradle/gradle-wrapper.jar
+gradle/gradle-wrapper.properties
