@@ -20,7 +20,7 @@ public class MankerBotMain extends ListenerAdapter {
         String token = "NjIxODEwMjk4NzgwNzc4NDk2.Xfejbw.G";
         token += "GAyqHH8IK5ruWKigv";
         token += "1KHuS9grU";
-        builder.setToken("NjIxODEwMjk4NzgwNzc4NDk2.Xfeh5w.lnKF6oZoVSXhMTHOzsPDt4JTLWY");
+        builder.setToken(token);
         builder.addEventListeners(new MankerBotMain());
         builder.setActivity(Activity.playing("with anime tiddies"));
         builder.build();
