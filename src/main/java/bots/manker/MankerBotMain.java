@@ -17,7 +17,7 @@ public class MankerBotMain extends ListenerAdapter {
 
     public void init() throws LoginException {
         JDABuilder builder = new JDABuilder(AccountType.BOT);
-        builder.setToken("NjIxODEwMjk4NzgwNzc4NDk2.XfeeKA.eh25lLclZNVvManSWA630_4b69M");
+        builder.setToken("NjIxODEwMjk4NzgwNzc4NDk2.Xfegig.nN2mjCgbdDpWyiQfbd7Wk_3eVwg");
         builder.addEventListeners(new MankerBotMain());
         builder.setActivity(Activity.playing("with anime tiddies"));
         builder.build();

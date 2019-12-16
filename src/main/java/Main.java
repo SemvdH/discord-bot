@@ -17,7 +17,6 @@ public class Main extends ListenerAdapter {
     public static void main(String[] args) throws LoginException {
         MankerBotMain mankerBot = new MankerBotMain();
         mankerBot.init();
-
     }
 
     
