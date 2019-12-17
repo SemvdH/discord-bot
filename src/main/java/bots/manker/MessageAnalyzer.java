@@ -6,7 +6,7 @@ public class MessageAnalyzer {
     private static final String REPLACEMENT = "bobba";
 
     private String[] meanWords = {
-        "boomer"
+        "boomer", "kut", "kanker", "fuck", "fucking", "Bethesda", "EA"
     };
 
     public String analyzeAndReplaceMeanWords(MessageReceivedEvent event) {
@@ -31,8 +31,10 @@ public class MessageAnalyzer {
     }
 
     public boolean hasMeanWords(MessageReceivedEvent event) {
+        String message = event.getMessage().getContentRaw().toLowerCase();
+
         for (String meanWord : this.meanWords) {
-            if (event.getMessage().getContentRaw().contains(meanWord)) {
+            if (message.contains(meanWord.toLowerCase())) {
                 return true;
             }
         }
@@ -41,8 +43,10 @@ public class MessageAnalyzer {
     }
 
     private String findAndReplaceMeanWord(String message) {
+        String lowercaseMessage = message.toLowerCase();
+
         for (String meanWord : this.meanWords) {
-            int meanWordIndex = message.indexOf(meanWord);
+            int meanWordIndex = lowercaseMessage.indexOf(meanWord.toLowerCase());
 
             if (meanWordIndex >= 0) {
                 String begin = message.substring(0, meanWordIndex);
