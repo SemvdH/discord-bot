@@ -56,7 +56,7 @@ public class MessageAnalyzer {
     public void checkSpecialCases(MessageReceivedEvent event) {
         String message = event.getMessage().getContentRaw();
 
-        if (message.equals("kut")) {
+        if (message.contains("kut")) {
             event.getChannel().sendMessage("Nee, het is vervelend!").queue();
         }
     }
