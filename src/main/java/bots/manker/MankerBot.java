@@ -35,7 +35,10 @@ public class MankerBot extends Bot {
 
             String message = this.analyzer.analyzeAndReplaceMeanWords(event);
 
-            event.getChannel().sendMessage("```" + message + "```\n- " + event.getAuthor().getName()).queue();
+            event.getChannel().sendMessage(
+                    "Your message has been Jolified.\n" +
+                    "```" + message + "```- " + event.getAuthor().getName()
+            ).queue();
         }
     }
 }
