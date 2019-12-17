@@ -13,7 +13,7 @@ public class JSONFunctions {
         for (int i = 0; i < jsonArray.size(); i++) {
             JSONObject current = (JSONObject)jsonArray.get(i);
             String tempID = (String)current.get("id");
-            if (tempID == id) {
+            if (tempID.equals(id)) {
                 contains = true;
                 break;
             }

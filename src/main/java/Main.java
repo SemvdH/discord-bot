@@ -16,6 +16,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import bots.manker.*;
+import bots.manker.functionalities.json.JSONFunctions;
 import bots.manker.functionalities.playerstats.Player;
 
 public class Main extends ListenerAdapter {
@@ -30,9 +31,8 @@ public class Main extends ListenerAdapter {
         // } catch (IOException e) {
         // e.printStackTrace();
         // }
-        Player player = new Player("yeetID", "name");
+        Player player = new Player("yeetID4", "name");
         player.writeAsJSON();
-        System.out.println(player.containsID("yeetIDD"));
     }
 
 }

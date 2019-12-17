@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Logger;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -16,6 +17,7 @@ import org.jsoup.select.Elements;
 public class GoogleSearch {
 
 	public static final String GOOGLE_SEARCH_URL = "https://www.google.com/search";
+	private static final Logger LOGGER = Logger.getLogger(GoogleSearch.class.getName());
 
 	public static String search(String tag) throws IOException {
 		// can only grab first 100 results
@@ -38,11 +40,8 @@ public class GoogleSearch {
 				}
 			}
 
-			System.out.println("number of results: " + resultUrls.size());
+			LOGGER.info("Number of results from googling [" + tag + "] : " + resultUrls.size());
 
-			for (String imageUrl : resultUrls) {
-				System.out.println(imageUrl);
-			}
 			if (resultUrls.isEmpty() || resultUrls.size() == 0) {
 				resUrl = "No results found";
 			} else {

@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.logging.Logger;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -15,6 +16,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import bots.manker.functionalities.json.JSONFunctions;
 
 /**
  * Player
@@ -27,6 +30,7 @@ public class Player {
     private JSONArray jsonArray;
 
     public static final String JSON_FILE = "players.json";
+    private static final Logger LOGGER = Logger.getLogger(Player.class.getName());
 
     public Player() {
     }
@@ -59,14 +63,17 @@ public class Player {
 
     public void writeAsJSON() throws IOException, ParseException {
         JSONParser parser = new JSONParser();
-        jsonArray = (JSONArray)parser.parse(new FileReader(JSON_FILE));
-        
+        jsonArray = (JSONArray) parser.parse(new FileReader(JSON_FILE));
+
         JSONObject playerObject = new JSONObject();
         playerObject.put("id", this.id);
         playerObject.put("name", this.name);
-        jsonArray.add(playerObject);
+        if (!JSONFunctions.containsID(this.id, jsonArray)) {
+            jsonArray.add(playerObject);
+            LOGGER.info("Adding new player: " + playerObject.toString());
+        }
         Files.write(Paths.get(JSON_FILE), jsonArray.toJSONString().getBytes());
-    }       
+    }
 
     public Player getFromJSON() throws JsonParseException, JsonMappingException, IOException {
         ObjectMapper objectMapper = new ObjectMapper();
