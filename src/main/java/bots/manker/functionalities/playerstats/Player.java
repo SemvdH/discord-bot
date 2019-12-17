@@ -66,21 +66,7 @@ public class Player {
         playerObject.put("name", this.name);
         jsonArray.add(playerObject);
         Files.write(Paths.get(JSON_FILE), jsonArray.toJSONString().getBytes());
-    }
-
-    public boolean containsID(String id) {
-        boolean contains = false;
-        for (int i = 0; i < jsonArray.size(); i++) {
-            JSONObject current = (JSONObject)jsonArray.get(i);
-            String tempID = (String)current.get("id");
-            if (tempID == id) {
-                contains = true;
-                break;
-            }
-        }
-        return contains;
-    }
-            
+    }       
 
     public Player getFromJSON() throws JsonParseException, JsonMappingException, IOException {
         ObjectMapper objectMapper = new ObjectMapper();

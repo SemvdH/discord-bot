@@ -30,8 +30,9 @@ public class Main extends ListenerAdapter {
         // } catch (IOException e) {
         // e.printStackTrace();
         // }
-        Player player = new Player("idtwee", "name");
+        Player player = new Player("yeetID", "name");
         player.writeAsJSON();
+        System.out.println(player.containsID("yeetIDD"));
     }
 
 }
