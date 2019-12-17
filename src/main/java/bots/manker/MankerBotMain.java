@@ -10,7 +10,7 @@ import java.util.List;
 import javax.security.auth.login.LoginException;
 
 import bots.manker.commands.*;
-import bots.manker.commands.Command;
+import bots.Command;
 import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;

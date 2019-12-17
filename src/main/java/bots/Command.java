@@ -1,4 +1,4 @@
-package bots.manker.commands;
+package bots;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;

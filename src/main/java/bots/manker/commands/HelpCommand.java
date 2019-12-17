@@ -1,5 +1,7 @@
 package bots.manker.commands;
 
+import bots.Command;
+
 public class HelpCommand extends Command {
     public static final String COMMAND_NAME = "help";
 

@@ -1,5 +1,6 @@
 package bots.manker.commands;
 
+import bots.Command;
 import bots.manker.GoogleSearch;
 
 import java.io.IOException;
