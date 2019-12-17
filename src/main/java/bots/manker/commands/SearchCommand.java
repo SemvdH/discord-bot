@@ -11,8 +11,6 @@ public class SearchCommand extends Command {
     @Override
     public void execute() {
         String searchQuery = this.parseParameter();
-
-        System.out.println("the received query was: " + searchQuery);
         try {
             event.getChannel().sendMessage(GoogleSearch.search(searchQuery)).queue();
         } catch (IOException e) {
