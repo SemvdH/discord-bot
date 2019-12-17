@@ -37,6 +37,11 @@ public class MankerBotMain extends ListenerAdapter {
         builder.build();
 
         this.commandList = new ArrayList<>();
+        this.commandList.add(new FourTwentyCommand());
+        this.commandList.add(new HelpCommand());
+        this.commandList.add(new MemeCommand());
+        this.commandList.add(new SearchCommand());
+        this.commandList.add(new YeetCommand());
     }
 
     private String getTokenFromFile() throws IOException {

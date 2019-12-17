@@ -4,16 +4,20 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 abstract public class Command {
-    private static final String COMMAND_PREFIX = "!manker";
-
     protected MessageReceivedEvent event;
+    protected String commandPrefix;
 
     public Command() {
         this.event = null;
+        this.commandPrefix = null;
     }
 
     public void setEvent(MessageReceivedEvent event) {
         this.event = event;
+    }
+
+    public void setCommandPrefix(String commandPrefix) {
+        this.commandPrefix = commandPrefix;
     }
 
     public abstract void execute();
@@ -43,10 +47,10 @@ abstract public class Command {
     }
 
     protected boolean isCommand(Message message) {
-        return message.getContentRaw().contains(COMMAND_PREFIX);
+        return message.getContentRaw().contains(this.commandPrefix);
     }
 
     protected String parseCommand(Message message) {
-        return message.getContentRaw().substring(COMMAND_PREFIX.length()).trim();
+        return message.getContentRaw().substring(this.commandPrefix.length()).trim();
     }
 }
