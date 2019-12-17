@@ -25,7 +25,7 @@ public class HelpCommand extends Command {
                 "!manker help : displays this message\n" +
                 "!manker search <search term> : searches a random image on \nGoogle related" +
                 "to the search term" +
-                "\n\n\n made by: Sem van der Hoeven\n" +
+                "\n\n\n made by: Sem van der Hoeven & Ben van der Heijden\n" +
                 "-===========================================================-";
         return res;
     }
