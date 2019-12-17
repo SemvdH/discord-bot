@@ -7,6 +7,8 @@ import bots.manker.commands.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class MankerBot extends Bot {
+    private MessageAnalyzer analyzer;
+
     public MankerBot(Settings settings) {
         super(settings);
 
@@ -20,10 +22,20 @@ public class MankerBot extends Bot {
         for (Command command : commandList) {
             command.setCommandPrefix(settings.getCommandPrefix());
         }
+
+        this.analyzer = new MessageAnalyzer();
     }
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         super.onMessageReceived(event);
+
+        if (!this.isBot(event.getAuthor()) && this.analyzer.hasMeanWords(event)) {
+            event.getMessage().delete().queue();
+
+            String message = this.analyzer.analyzeAndReplaceMeanWords(event);
+
+            event.getChannel().sendMessage("```" + message + "```\n- " + event.getAuthor().getName()).queue();
+        }
     }
 }

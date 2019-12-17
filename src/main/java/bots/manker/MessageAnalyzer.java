@@ -37,12 +37,12 @@ public class MessageAnalyzer {
 
     private String findAndReplaceMeanWord(String message) {
         for (String meanWord : this.meanWords) {
-            int meanWordIndex = meanWord.indexOf(meanWord);
-            if (meanWordIndex != -1) {
+            int meanWordIndex = message.indexOf(meanWord);
+            if (meanWordIndex > 0) {
                 String begin = message.substring(0, meanWordIndex);
                 String end = message.substring(meanWordIndex + meanWord.length());
 
-                return begin + "bobba" + end;
+                return begin + REPLACEMENT + end;
             }
         }
 
