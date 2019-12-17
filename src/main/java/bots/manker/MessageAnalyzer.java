@@ -2,6 +2,9 @@ package bots.manker;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MessageAnalyzer {
     private static final String REPLACEMENT = "bobba";
 
@@ -9,9 +12,16 @@ public class MessageAnalyzer {
         "boomer", "kut", "kanker", "fucking", "fuck", "Bethesda", "graftakken", "graf", "tering", "Jessica", "bug"
     };
 
+    private Map<String, String> specialCases;
+
+    public MessageAnalyzer() {
+        this.specialCases = new HashMap<>();
+        this.specialCases.put("kut", "Nee, het is vervelend!");
+        this.specialCases.put("juice wrld", "rust in vrede sap wereld");
+    }
+
     public String analyzeAndReplaceMeanWords(MessageReceivedEvent event) {
         String message = event.getMessage().getContentRaw();
-        checkSpecialCases(event);
         while (true) {
             String replacement = this.findAndReplaceMeanWord(message);
 
@@ -61,12 +71,10 @@ public class MessageAnalyzer {
     public void checkSpecialCases(MessageReceivedEvent event) {
         String message = event.getMessage().getContentRaw();
 
-        if (message.contains("kut")) {
-            event.getChannel().sendMessage("Nee, het is vervelend!\n").queue();
-        } else if(message.toLowerCase().contains("juice wrld")) {
-            event.getChannel().sendMessage("rust in vrede sap wereld\n").queue();
+        for (Map.Entry<String, String> entry : this.specialCases.entrySet()) {
+            if (message.toLowerCase().contains(entry.getKey().toLowerCase())) {
+                event.getChannel().sendMessage(entry.getValue() + "\n").queue();
+            }
         }
-
-    
     }
 }

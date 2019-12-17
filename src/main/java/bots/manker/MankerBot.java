@@ -30,6 +30,10 @@ public class MankerBot extends Bot {
     public void onMessageReceived(MessageReceivedEvent event) {
         super.onMessageReceived(event);
 
+        if (!this.isBot(event.getAuthor())) {
+            this.analyzer.checkSpecialCases(event);
+        }
+
         if (!this.isBot(event.getAuthor()) && this.analyzer.hasMeanWords(event)) {
             event.getMessage().delete().queue();
 
