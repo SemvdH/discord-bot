@@ -6,7 +6,7 @@ public class MessageAnalyzer {
     private static final String REPLACEMENT = "bobba";
 
     private String[] meanWords = {
-        "boomer", "kut", "kanker", "fuck", "fucking", "Bethesda", "EA"
+        "boomer", "kut", "kanker", "fucking", "fuck", "Bethesda", "EA", "graftakken", "graf", "tering"
     };
 
     public String analyzeAndReplaceMeanWords(MessageReceivedEvent event) {
