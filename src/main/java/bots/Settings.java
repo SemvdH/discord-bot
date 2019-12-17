@@ -10,10 +10,10 @@ public class Settings {
     private String memeDirectory;
 
     public Settings(Dotenv dotenv) {
-        this.token = dotenv.get("BOT_TOKEN");
-        this.commandPrefix = dotenv.get("BOT_COMMAND_PREFIX");
-        this.activity = dotenv.get("BOT_ACTIVITY");
-        this.botName = dotenv.get("BOT_NAME");
+        this.token = dotenv.get("MANKER_BOT_TOKEN");
+        this.commandPrefix = dotenv.get("MANKER_BOT_COMMAND_PREFIX");
+        this.activity = dotenv.get("MANKER_BOT_ACTIVITY");
+        this.botName = dotenv.get("MANKER_BOT_NAME");
         this.memeDirectory = dotenv.get("MEME_DIRECTORY");
     }
 
