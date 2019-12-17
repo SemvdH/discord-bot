@@ -62,7 +62,7 @@ public class MessageAnalyzer {
         String message = event.getMessage().getContentRaw();
 
         if (message.contains("kut")) {
-            event.getChannel().sendMessage("Nee, het is vervelend!").queue();
+            event.getChannel().sendMessage("Nee, het is vervelend!\n").queue();
         }
     }
 }
