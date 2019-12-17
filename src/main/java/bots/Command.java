@@ -33,7 +33,7 @@ abstract public class Command {
 
         String command = this.parseCommand(this.event.getMessage());
 
-        return this.getCommandName().equals(command);
+        return this.getCommandName().toLowerCase().equals(command.toLowerCase());
     }
 
     protected String[] parseParameters() {
