@@ -1,6 +1,4 @@
-package bots.manker;
-
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+package bots.manker.commands;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,32 +11,30 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/**
- * Command class for the bot.
- * here all the commands are handled.
- */
-public class Command {
+public class MemeCommand extends Command {
+    public static final String COMMAND_NAME = "meme";
 
-    /**
-     * method that sends a meme to the channel of the event
-     * @param event the event of a message received.
-     */
-    public static void sendMeme(MessageReceivedEvent event) {
-        List<File> memes = getAllFiles(event);
+    @Override
+    public void execute() {
+        List<File> memes = getAllFiles();
         Random ramdom = new Random();
 //            System.out.println("memes: " + memes.size());
         int ramdomInteger = ramdom.nextInt(memes.size());
         File meme = memes.get(ramdomInteger);
 
-        event.getChannel().sendFile(meme).queue();
+        this.event.getChannel().sendFile(meme).queue();
+    }
+
+    @Override
+    public String getCommandName() {
+        return COMMAND_NAME;
     }
 
     /**
      * method that retrieves all memes from a folder.
-     * @param event the event of a message received.
      * @return a list of files containing all memes.
      */
-    public static List<File> getAllFiles(MessageReceivedEvent event) {
+    private List<File> getAllFiles() {
         List<File> memes = new ArrayList<>();
 
         System.out.println("--- getting memes ---");
@@ -78,33 +74,13 @@ public class Command {
 
 
         } catch (IOException e) {
-            event.getChannel().sendMessage("there was an error: " + e.getMessage());
+            this.event.getChannel().sendMessage("there was an error: " + e.getMessage());
             e.printStackTrace();
 
         } catch (IllegalStateException e) {
-            event.getChannel().sendMessage("there was an error: " + e.getMessage());
+            this.event.getChannel().sendMessage("there was an error: " + e.getMessage());
             e.printStackTrace();
         }
         return memes;
     }
-
-    public static void sendHelpInfo(MessageReceivedEvent event) {
-        String helpmsg = printHelp();
-        event.getChannel().sendMessage(helpmsg).queue();
-    }
-
-    public static String printHelp() {
-        String res = "-========================= General help =========================-\n" +
-                "**(This bot is still very early stage, so things are subject to change)**\n" +
-                "Keyword: !manker\n\n" +
-                "!manker meme : posts a random meme\n" +
-                "!manker yeet : responds to your message with yeet\n" +
-                "!manker help : displays this message\n" +
-                "!manker search <search term> : searches a random image on \nGoogle related" +
-                "to the search term" +  
-                "\n\n\n made by: Sem van der Hoeven\n" +
-                "-===========================================================-";
-        return res;
-    }
-
 }

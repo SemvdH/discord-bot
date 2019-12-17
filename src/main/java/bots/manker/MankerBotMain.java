@@ -4,12 +4,18 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.security.auth.login.LoginException;
 
+import bots.manker.commands.*;
+import bots.manker.commands.Command;
 import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -18,6 +24,11 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
  */
 public class MankerBotMain extends ListenerAdapter {
 
+    private static final String COMMAND_PREFIX = "!manker";
+    private static final String BOT_NAME = "xXx_NoobSlayer69_xXx";
+
+    private List<Command> commandList;
+
     public void init() throws LoginException, IOException{
         JDABuilder builder = new JDABuilder(AccountType.BOT);
         String token = getTokenFromFile();
@@ -25,6 +36,8 @@ public class MankerBotMain extends ListenerAdapter {
         builder.addEventListeners(new MankerBotMain());
         builder.setActivity(Activity.playing("with anime tiddies keyword = !manker"));
         builder.build();
+
+        this.commandList = new ArrayList<>();
     }
 
     private String getTokenFromFile() throws IOException {
@@ -36,54 +49,46 @@ public class MankerBotMain extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
+        User author = event.getAuthor();
+        Message message = event.getMessage();
 
-        System.out.println("We received a message from: " + event.getAuthor().getName() + " : "
-                + event.getMessage().getContentDisplay());
-        if (!event.getAuthor().getName().equals("xXx_NoobSlayer69_xXx")) {
+        System.out.printf("We received a message from: %s : %s", author.getName(), message.getContentDisplay());
 
-            if (event.getMessage().getContentRaw().equals("!manker")) {
-                // call queue(), otherwise our message will never be sent
-                event.getChannel().sendMessage("manker?").queue();
-            } else if (event.getMessage().getContentRaw().equals("!manker meme")) {
+        if (this.isBot(author)) {
+            return;
+        }
 
-                Command.sendMeme(event);
+        this.handleCommand(event);
+    }
 
-            } else if (event.getMessage().getContentRaw().equals("!manker yeet")) {
-                String name = event.getAuthor().getName();
-                event.getChannel().sendMessage("yeet " + name).queue();
+    private void handleCommand(MessageReceivedEvent event) {
+        for (Command command : this.commandList) {
+            command.setEvent(event);
+            if (command.isValid()) {
+                command.execute();
 
-            } else if (event.getMessage().getContentRaw().equals("!manker help")) {
-
-                Command.sendHelpInfo(event);
-
-            } else if (event.getMessage().getContentRaw().equals("!manker420")) {
-                String res = "";
-                for (int i = 0; i < 69; i++) {
-                    res += "MANKER ";
-                }
-
-                event.getChannel().sendMessage(res).queue();
-            } else if (event.getMessage().getContentRaw().startsWith("!manker search")) {
-                String text = event.getMessage().getContentRaw();
-                text = text.substring(14);
-                text = text.trim();
-                System.out.println("the received tag was: " + text);
-                try {
-                    event.getChannel().sendMessage(GoogleSearch.search(text)).queue();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    event.getChannel().sendMessage("There was an error while looking for an image!").queue();
-                }
-
-            } else {
-                if (event.getMessage().getContentRaw().startsWith("!manker")) {
-                    event.getChannel().sendMessage("What? I didn't understand you!\nLet me help you with the commands:").queue();
-                    Command.sendHelpInfo(event);
-                }
+                return;
             }
+        }
 
+        Command helpCommand = this.getCommand(HelpCommand.COMMAND_NAME);
 
+        if (helpCommand != null) {
+            helpCommand.execute();
         }
     }
-    
+
+    private Command getCommand(String name) {
+        for (Command command : this.commandList) {
+            if (command.getCommandName().equals(name)) {
+                return command;
+            }
+        }
+
+        return null;
+    }
+
+    private boolean isBot(User user) {
+        return user.getName().equals(BOT_NAME);
+    }
 }
