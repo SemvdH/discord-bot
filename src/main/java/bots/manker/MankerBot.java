@@ -10,12 +10,12 @@ public class MankerBot extends Bot {
     public MankerBot(Settings settings) {
         super(settings);
 
-        this.commandList.add(new FourTwentyCommand());
-        this.commandList.add(new HelpCommand());
-        this.commandList.add(new MemeCommand());
-        this.commandList.add(new SearchCommand());
-        this.commandList.add(new YeetCommand());
-        this.commandList.add(new ChooseCommand());
+        this.commandList.add(new FourTwentyCommand(settings));
+        this.commandList.add(new HelpCommand(settings));
+        this.commandList.add(new MemeCommand(settings));
+        this.commandList.add(new SearchCommand(settings));
+        this.commandList.add(new YeetCommand(settings));
+        this.commandList.add(new ChooseCommand(settings));
 
         for (Command command : commandList) {
             command.setCommandPrefix(settings.getCommandPrefix());

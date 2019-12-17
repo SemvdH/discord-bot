@@ -7,12 +7,14 @@ public class Settings {
     private String commandPrefix;
     private String activity;
     private String botName;
+    private String memeDirectory;
 
     public Settings(Dotenv dotenv) {
         this.token = dotenv.get("BOT_TOKEN");
         this.commandPrefix = dotenv.get("BOT_COMMAND_PREFIX");
         this.activity = dotenv.get("BOT_ACTIVITY");
         this.botName = dotenv.get("BOT_NAME");
+        this.memeDirectory = dotenv.get("MEME_DIRECTORY");
     }
 
     public String getToken() {
@@ -45,5 +47,9 @@ public class Settings {
         }
 
         return botName;
+    }
+
+    public String getMemeDirectory() {
+        return memeDirectory;
     }
 }

@@ -1,12 +1,17 @@
 package bots.manker.commands;
 
 import bots.Command;
+import bots.Settings;
 import bots.manker.GoogleSearch;
 
 import java.io.IOException;
 
 public class SearchCommand extends Command {
     public static final String COMMAND_NAME = "search";
+
+    public SearchCommand(Settings settings) {
+        super(settings);
+    }
 
     @Override
     public void execute() {

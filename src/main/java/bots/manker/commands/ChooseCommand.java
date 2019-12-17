@@ -1,11 +1,16 @@
 package bots.manker.commands;
 
 import bots.Command;
+import bots.Settings;
 
 import java.util.Random;
 
 public class ChooseCommand extends Command {
     public static final String COMMAND_NAME = "choose";
+
+    public ChooseCommand(Settings settings) {
+        super(settings);
+    }
 
     @Override
     public void execute() {

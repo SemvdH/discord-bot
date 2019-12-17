@@ -1,9 +1,14 @@
 package bots.manker.commands;
 
 import bots.Command;
+import bots.Settings;
 
 public class HelpCommand extends Command {
     public static final String COMMAND_NAME = "help";
+
+    public HelpCommand(Settings settings) {
+        super(settings);
+    }
 
     @Override
     public void execute() {

@@ -1,6 +1,7 @@
 package bots.manker.commands;
 
 import bots.Command;
+import bots.Settings;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +16,10 @@ import java.util.stream.Stream;
 
 public class MemeCommand extends Command {
     public static final String COMMAND_NAME = "meme";
+
+    public MemeCommand(Settings settings) {
+        super(settings);
+    }
 
     @Override
     public void execute() {
@@ -42,7 +47,7 @@ public class MemeCommand extends Command {
         System.out.println("--- getting memes ---");
 
         // get all images ending with .jpg
-        try (Stream<Path> walk = Files.walk(Paths.get("C:\\Users\\Sem\\OneDrive\\Afbeeldingen\\memes"))) {
+        try (Stream<Path> walk = Files.walk(Paths.get(this.settings.getMemeDirectory()))) {
 
             List<String> resultjpg = walk.map(Path::toString)
                     .filter(f -> f.endsWith(".jpg")).collect(Collectors.toList());
@@ -54,7 +59,7 @@ public class MemeCommand extends Command {
             }
 
             //get all png's
-            Stream<Path> walkpng = Files.walk(Paths.get("C:\\Users\\Sem\\OneDrive\\Afbeeldingen\\memes"));
+            Stream<Path> walkpng = Files.walk(Paths.get(this.settings.getMemeDirectory()));
 
             List<String> resultpng = walkpng.map(Path::toString)
                     .filter(f -> f.endsWith(".png")).collect(Collectors.toList());
@@ -64,7 +69,7 @@ public class MemeCommand extends Command {
                 memes.add(file);
             }
             // get all gifs
-            Stream<Path> walkgif = Files.walk(Paths.get("C:\\Users\\Sem\\OneDrive\\Afbeeldingen\\memes"));
+            Stream<Path> walkgif = Files.walk(Paths.get(this.settings.getMemeDirectory()));
 
             List<String> resultgif = walkgif.map(Path::toString)
                     .filter(f -> f.endsWith(".gif")).collect(Collectors.toList());

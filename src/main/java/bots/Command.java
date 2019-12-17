@@ -4,10 +4,12 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 abstract public class Command {
+    protected Settings settings;
     protected MessageReceivedEvent event;
     protected String commandPrefix;
 
-    public Command() {
+    public Command(Settings settings) {
+        this.settings = settings;
         this.event = null;
         this.commandPrefix = null;
     }
