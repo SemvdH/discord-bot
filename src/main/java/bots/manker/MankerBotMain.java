@@ -26,17 +26,17 @@ public class MankerBotMain extends ListenerAdapter {
     private static final String COMMAND_PREFIX = "!manker";
     private static final String BOT_NAME = "xXx_NoobSlayer69_xXx";
 
-    private List<Command> commandList;
+    private static List<Command> commandList;
 
     public void init() throws LoginException, IOException{
-        this.commandList = new ArrayList<>();
-        this.commandList.add(new FourTwentyCommand());
-        this.commandList.add(new HelpCommand());
-        this.commandList.add(new MemeCommand());
-        this.commandList.add(new SearchCommand());
-        this.commandList.add(new YeetCommand());
+        commandList = new ArrayList<>();
+        commandList.add(new FourTwentyCommand());
+        commandList.add(new HelpCommand());
+        commandList.add(new MemeCommand());
+        commandList.add(new SearchCommand());
+        commandList.add(new YeetCommand());
 
-        for (Command command : this.commandList) {
+        for (Command command : commandList) {
             command.setCommandPrefix(COMMAND_PREFIX);
         }
 
@@ -61,7 +61,7 @@ public class MankerBotMain extends ListenerAdapter {
             return;
         }
 
-        System.out.println("list in on message received: " + this.commandList);
+        // System.out.println("list in on message received: " + commandList);
         this.handleCommand(event);
     }
 
@@ -70,7 +70,7 @@ public class MankerBotMain extends ListenerAdapter {
      * @param event event
      */
     private void handleCommand(MessageReceivedEvent event) {
-        for (Command command : this.commandList) {
+        for (Command command : commandList) {
             command.setEvent(event);
             if (command.isValid()) {
                 command.execute();
@@ -92,7 +92,7 @@ public class MankerBotMain extends ListenerAdapter {
      * @return command
      */
     private Command getCommand(String commandName) {
-        for (Command command : this.commandList) {
+        for (Command command : commandList) {
             if (command.getCommandName().equals(commandName)) {
                 return command;
             }
