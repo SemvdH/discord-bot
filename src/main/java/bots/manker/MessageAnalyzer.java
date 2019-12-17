@@ -11,21 +11,16 @@ public class MessageAnalyzer {
 
     public String analyzeAndReplaceMeanWords(MessageReceivedEvent event) {
         String message = event.getMessage().getContentRaw();
-        if (message.equals("kut")) {
-            message = "Nee, het is 'vervelend'!";
-        } else {
-            while (true) {
-                String replacement = this.findAndReplaceMeanWord(message);
-    
-                if (replacement == null) {
-                    break;
-                }
-    
-                message = replacement;
+        checkSpecialCases(event);
+        while (true) {
+            String replacement = this.findAndReplaceMeanWord(message);
+
+            if (replacement == null) {
+                break;
             }
 
+            message = replacement;
         }
-
 
         return message;
     }
@@ -61,5 +56,13 @@ public class MessageAnalyzer {
         }
 
         return null;
+    }
+
+    public void checkSpecialCases(MessageReceivedEvent event) {
+        String message = event.getMessage().getContentRaw();
+
+        if (message.equals("kut")) {
+            event.getChannel().sendMessage("Nee, het is vervelend!").queue();
+        }
     }
 }
