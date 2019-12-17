@@ -45,7 +45,7 @@ public class MankerBot extends Bot {
             event.getChannel().sendMessage(
                     "> Your message has been Jolified.\n" +
                     "```" + message + "```- *" + event.getAuthor().getName() +
-                    "* " + event.getMessage().getTimeCreated().atZoneSameInstant(ZoneId.of("Europe/Amsterdam")).format(DateTimeFormatter.ofPattern("HH:mm:ss"))
+                    "* at " + event.getMessage().getTimeCreated().atZoneSameInstant(ZoneId.of("Europe/Amsterdam")).format(DateTimeFormatter.ofPattern("HH:mm:ss"))
             ).queue();
         }
     }
