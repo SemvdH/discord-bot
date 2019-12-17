@@ -43,14 +43,14 @@ abstract public class Command {
     }
 
     protected String parseParameter() {
-        return parseCommand(this.event.getMessage()).substring(this.getCommandName().length());
+        return parseCommand(this.event.getMessage()).substring(this.getCommandName().length()).trim();
     }
 
     protected boolean isCommand(Message message) {
-        return message.getContentRaw().contains(this.commandPrefix);
+        return message.getContentRaw().trim().startsWith(this.commandPrefix);
     }
 
     protected String parseCommand(Message message) {
-        return message.getContentRaw().substring(this.commandPrefix.length()).trim();
+        return message.getContentRaw().trim().substring(this.commandPrefix.length()).trim();
     }
 }
