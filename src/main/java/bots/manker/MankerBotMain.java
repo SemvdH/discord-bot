@@ -42,6 +42,7 @@ public class MankerBotMain extends ListenerAdapter {
         this.commandList.add(new MemeCommand());
         this.commandList.add(new SearchCommand());
         this.commandList.add(new YeetCommand());
+        this.commandList.add(new ChooseCommand());
 
         for (Command command : this.commandList) {
             command.setCommandPrefix(COMMAND_PREFIX);
