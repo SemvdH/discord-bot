@@ -5,8 +5,9 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 public class MessageAnalyzer {
     private static final String REPLACEMENT = "bobba";
 
-    private String[] meanWords = { "boomer", "kut", "kanker", "fucking", "fuck", "Bethesda", "EA", "graftakken", "graf",
-            "tering", "Jessica" };
+    private String[] meanWords = {
+        "boomer", "kut", "kanker", "fucking", "fuck", "Bethesda", "graftakken", "graf", "tering", "Jessica"
+    };
 
     public String analyzeAndReplaceMeanWords(MessageReceivedEvent event) {
         String message = event.getMessage().getContentRaw();
