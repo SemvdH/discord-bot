@@ -14,7 +14,6 @@ import bots.manker.commands.Command;
 import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -49,18 +48,17 @@ public class MankerBotMain extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        User author = event.getAuthor();
-        Message message = event.getMessage();
-
-        System.out.printf("We received a message from: %s : %s", author.getName(), message.getContentDisplay());
-
-        if (this.isBot(author)) {
+        if (this.isBot(event.getAuthor())) {
             return;
         }
 
         this.handleCommand(event);
     }
 
+    /**
+     * Handle command
+     * @param event event
+     */
     private void handleCommand(MessageReceivedEvent event) {
         for (Command command : this.commandList) {
             command.setEvent(event);
@@ -78,9 +76,14 @@ public class MankerBotMain extends ListenerAdapter {
         }
     }
 
-    private Command getCommand(String name) {
+    /**
+     * Get command by command name
+     * @param commandName name of command
+     * @return command
+     */
+    private Command getCommand(String commandName) {
         for (Command command : this.commandList) {
-            if (command.getCommandName().equals(name)) {
+            if (command.getCommandName().equals(commandName)) {
                 return command;
             }
         }
@@ -88,6 +91,11 @@ public class MankerBotMain extends ListenerAdapter {
         return null;
     }
 
+    /**
+     * Check if user is bot
+     * @param user user
+     * @return if bot
+     */
     private boolean isBot(User user) {
         return user.getName().equals(BOT_NAME);
     }
