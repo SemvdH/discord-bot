@@ -27,6 +27,7 @@ public class MankerBotMain extends ListenerAdapter {
     private static final String BOT_NAME = "xXx_NoobSlayer69_xXx";
 
     private List<Command> commandList;
+    private MessageAnalyzer analyzer;
 
     public void init() throws LoginException, IOException{
         JDABuilder builder = new JDABuilder(AccountType.BOT);
@@ -46,6 +47,8 @@ public class MankerBotMain extends ListenerAdapter {
         for (Command command : this.commandList) {
             command.setCommandPrefix(COMMAND_PREFIX);
         }
+
+        this.analyzer = new MessageAnalyzer();
     }
 
     private String getTokenFromFile() throws IOException {
@@ -62,6 +65,12 @@ public class MankerBotMain extends ListenerAdapter {
         }
 
         this.handleCommand(event);
+
+        if (this.analyzer.hasMeanWords(event)) {
+            String editedMessage = this.analyzer.analyzeAndReplaceMeanWords(event);
+
+            event.getMessage().editMessage(editedMessage).queue();
+        }
     }
 
     /**
