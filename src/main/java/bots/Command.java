@@ -21,6 +21,7 @@ abstract public class Command {
     }
 
     public abstract void execute();
+
     public abstract String getCommandName();
 
     public boolean isValid() {
@@ -28,7 +29,9 @@ abstract public class Command {
             return false;
         }
 
-        return this.getCommandName().equals(this.parseCommand(this.event.getMessage()));
+        String command = this.parseCommand(this.event.getMessage());
+
+        return this.getCommandName().equals(command);
     }
 
     protected String[] parseParameters() {
@@ -43,7 +46,9 @@ abstract public class Command {
     }
 
     protected String parseParameter() {
-        return parseCommand(this.event.getMessage()).substring(this.getCommandName().length()).trim();
+        String parameter = this.event.getMessage().getContentRaw().trim().substring(this.commandPrefix.length() + 1 + this.getCommandName().length());
+
+        return parameter;
     }
 
     protected boolean isCommand(Message message) {
@@ -51,6 +56,15 @@ abstract public class Command {
     }
 
     protected String parseCommand(Message message) {
-        return message.getContentRaw().trim().substring(this.commandPrefix.length()).trim();
+        String messageString = message.getContentRaw().trim();
+
+        if (messageString.length() < this.commandPrefix.length() + this.getCommandName().length() + 1) {
+            return "";
+        }
+
+        return messageString.substring(
+                this.commandPrefix.length(),
+                1 + this.commandPrefix.length() + this.getCommandName().length()
+        ).trim();
     }
 }

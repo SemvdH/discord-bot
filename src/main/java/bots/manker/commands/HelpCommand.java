@@ -24,7 +24,8 @@ public class HelpCommand extends Command {
                 "!manker yeet : responds to your message with yeet\n" +
                 "!manker help : displays this message\n" +
                 "!manker search <search term> : searches a random image on \nGoogle related" +
-                "to the search term" +
+                "to the search term\n" +
+                "!manker choose <options seperated by comma>\n" +
                 "\n\n\n made by: Sem van der Hoeven\n" +
                 "-===========================================================-";
         return res;
