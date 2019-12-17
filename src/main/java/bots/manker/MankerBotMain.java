@@ -70,6 +70,7 @@ public class MankerBotMain extends ListenerAdapter {
             String editedMessage = this.analyzer.analyzeAndReplaceMeanWords(event);
 
             event.getMessage().editMessage(editedMessage).queue();
+            event.getChannel().sendMessage("Manker, dat kan je niet zeggen!").queue();
         }
     }
 
