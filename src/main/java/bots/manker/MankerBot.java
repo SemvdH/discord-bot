@@ -37,7 +37,7 @@ public class MankerBot extends Bot {
 
             event.getChannel().sendMessage(
                     "Your message has been Jolified.\n" +
-                    "```" + message + "```- " + event.getAuthor().getName()
+                    "```" + message + "```- " + "**" + event.getAuthor().getName() + "**"
             ).queue();
         }
     }
