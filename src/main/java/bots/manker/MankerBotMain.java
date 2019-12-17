@@ -79,6 +79,10 @@ public class MankerBotMain extends ListenerAdapter {
             }
         }
 
+        if (!event.getMessage().getContentRaw().startsWith(COMMAND_PREFIX)) {
+            return;
+        }
+
         Command helpCommand = this.getCommand(HelpCommand.COMMAND_NAME);
 
         if (helpCommand != null) {

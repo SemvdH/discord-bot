@@ -23,8 +23,7 @@ public class Main extends ListenerAdapter {
 
     private final String USER_AGENT = "Mozilla/5.0";
 
-    public static void main(String[] args) throws LoginException, IOException
-           {
+    public static void main(String[] args) throws LoginException, IOException {
         MankerBotMain mankerBot = new MankerBotMain();
         mankerBot.init();
     }
