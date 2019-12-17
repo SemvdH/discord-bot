@@ -11,16 +11,21 @@ public class MessageAnalyzer {
 
     public String analyzeAndReplaceMeanWords(MessageReceivedEvent event) {
         String message = event.getMessage().getContentRaw();
-
-        while (true) {
-            String replacement = this.findAndReplaceMeanWord(message);
-
-            if (replacement == null) {
-                break;
+        if (message.equals("kut")) {
+            message = "Nee, het is 'vervelend'!";
+        } else {
+            while (true) {
+                String replacement = this.findAndReplaceMeanWord(message);
+    
+                if (replacement == null) {
+                    break;
+                }
+    
+                message = replacement;
             }
 
-            message = replacement;
         }
+
 
         return message;
     }
