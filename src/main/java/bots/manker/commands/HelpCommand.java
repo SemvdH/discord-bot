@@ -28,10 +28,10 @@ public class HelpCommand extends Command {
                 "!manker meme : posts a random meme\n" +
                 "!manker yeet : responds to your message with yeet\n" +
                 "!manker help : displays this message\n" +
-                "!manker search <search term> : searches a random image on \nGoogle related" +
+                "!manker search <search term> : searches a random image on \nGoogle related " +
                 "to the search term\n" +
                 "!manker choose <options seperated by comma>\n" +
-                "\n\n\n made by: Sem van der Hoeven\n" +
+                "\n\n\n made by: Sem van der Hoeven & Ben van der Heiden\n" +
                 "-===========================================================-";
         return res;
     }
