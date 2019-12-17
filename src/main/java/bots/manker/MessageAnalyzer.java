@@ -63,6 +63,10 @@ public class MessageAnalyzer {
 
         if (message.contains("kut")) {
             event.getChannel().sendMessage("Nee, het is vervelend!\n").queue();
+        } else if(message.toLowerCase().contains("juice wrld")) {
+            event.getChannel().sendMessage("rust in vrede sap wereld\n").queue();
         }
+
+    
     }
 }
