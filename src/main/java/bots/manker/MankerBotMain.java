@@ -29,6 +29,13 @@ public class MankerBotMain extends ListenerAdapter {
     private List<Command> commandList;
 
     public void init() throws LoginException, IOException{
+        this.commandList = new ArrayList<>();
+        this.commandList.add(new FourTwentyCommand());
+        this.commandList.add(new HelpCommand());
+        this.commandList.add(new MemeCommand());
+        this.commandList.add(new SearchCommand());
+        this.commandList.add(new YeetCommand());
+        
         JDABuilder builder = new JDABuilder(AccountType.BOT);
         String token = getTokenFromFile();
         builder.setToken(token);
@@ -36,12 +43,7 @@ public class MankerBotMain extends ListenerAdapter {
         builder.setActivity(Activity.playing("with anime tiddies keyword = !manker"));
         builder.build();
 
-        this.commandList = new ArrayList<>();
-        this.commandList.add(new FourTwentyCommand());
-        this.commandList.add(new HelpCommand());
-        this.commandList.add(new MemeCommand());
-        this.commandList.add(new SearchCommand());
-        this.commandList.add(new YeetCommand());
+        System.out.println("command list: " + this.commandList);
 
         for (Command command : this.commandList) {
             command.setCommandPrefix(COMMAND_PREFIX);
@@ -61,6 +63,7 @@ public class MankerBotMain extends ListenerAdapter {
             return;
         }
 
+        System.out.println("list in on message received: " + this.commandList);
         this.handleCommand(event);
     }
 
