@@ -21,6 +21,7 @@ public class MankerBot extends Bot {
         this.commandList.add(new SearchCommand(settings));
         this.commandList.add(new YeetCommand(settings));
         this.commandList.add(new ChooseCommand(settings));
+        this.commandList.add(new StatsCommand(settings));
 
         for (Command command : commandList) {
             command.setCommandPrefix(settings.getCommandPrefix());
