@@ -1,33 +1,31 @@
-import java.io.IOException;
-
-import javax.security.auth.login.LoginException;
-
+import bots.Bot;
+import bots.Settings;
+import bots.manker.MankerBot;
+import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-import bots.manker.*;
+import javax.security.auth.login.LoginException;
 
-public class Main extends ListenerAdapter {
-
-    private final String USER_AGENT = "Mozilla/5.0";
-
-    public static void main(String[] args) throws LoginException {
-        MankerBotMain mankerBot = new MankerBotMain();
+public class Main {
+    public static void main(String[] args) {
         try {
-            mankerBot.init();
-        } catch (IOException e) {
+            Settings settings = new Settings(Dotenv.configure().load());
+
+            Bot mankerBot = new MankerBot(settings);
+
+            buildJDAConnection(settings, mankerBot);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    
-
-
-
-
-
-
+    private static void buildJDAConnection(Settings settings, Bot bot) throws LoginException {
+        JDABuilder builder = new JDABuilder(AccountType.BOT);
+        builder.setToken(settings.getToken());
+        builder.addEventListeners(bot);
+        builder.setActivity(Activity.playing(settings.getActivity()));
+        builder.build();
+    }
 }
