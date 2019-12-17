@@ -17,7 +17,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-// import bots.manker.functionalities.json.JSONFunctions;
+import bots.manker.functionalities.json.JSONFunctions;
 
 /**
  * Player
@@ -68,10 +68,10 @@ public class Player {
         JSONObject playerObject = new JSONObject();
         playerObject.put("id", this.id);
         playerObject.put("name", this.name);
-        // if (!JSONFunctions.containsID(this.id, jsonArray)) {
-        //     jsonArray.add(playerObject);
-        //     LOGGER.info("Adding new player: " + playerObject.toString());
-        // }
+        if (!JSONFunctions.containsID(this.id, jsonArray)) {
+            jsonArray.add(playerObject);
+            LOGGER.info("Adding new player: " + playerObject.toString());
+        }
         Files.write(Paths.get(JSON_FILE), jsonArray.toJSONString().getBytes());
     }
 
