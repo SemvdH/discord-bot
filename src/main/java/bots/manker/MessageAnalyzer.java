@@ -6,7 +6,7 @@ public class MessageAnalyzer {
     private static final String REPLACEMENT = "bobba";
 
     private String[] meanWords = {
-        "boomer", "kut", "kanker", "fucking", "fuck", "Bethesda", "graftakken", "graf", "tering", "Jessica"
+        "boomer", "kut", "kanker", "fucking", "fuck", "Bethesda", "graftakken", "graf", "tering", "Jessica", "bug"
     };
 
     public String analyzeAndReplaceMeanWords(MessageReceivedEvent event) {
@@ -46,6 +46,11 @@ public class MessageAnalyzer {
             if (meanWordIndex >= 0) {
                 String begin = message.substring(0, meanWordIndex);
                 String end = message.substring(meanWordIndex + meanWord.length());
+
+                if (meanWord.equals("bug")) {
+                    return begin + "feature" + end;
+                }
+
                 return begin + REPLACEMENT + end;
             }
         }
