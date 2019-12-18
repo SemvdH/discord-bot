@@ -5,9 +5,13 @@ import bots.Command;
 import bots.Settings;
 import bots.manker.commands.*;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.emote.EmoteAddedEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
 import net.dv8tion.jda.api.requests.RestAction;
 
+import javax.annotation.Nonnull;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -54,6 +58,24 @@ public class MankerBot extends Bot {
 
         if (!this.isBot(event.getAuthor())) {
             this.analyzer.checkSpecialCases(event);
+        }
+    }
+
+    @Override
+    public void onMessageReactionAdd(@Nonnull MessageReactionAddEvent event) {
+        if (event.getReaction().getReactionEmote().isEmoji()) {
+            if (event.getReaction().getReactionEmote().getAsCodepoints().equals("U+1f346")) {
+                event.getTextChannel().addReactionById(event.getMessageIdLong(), "U+1f4a6").queue();
+            }
+        }
+    }
+
+    @Override
+    public void onMessageReactionRemove(@Nonnull MessageReactionRemoveEvent event) {
+        if (event.getReaction().getReactionEmote().isEmoji()) {
+            if (event.getReaction().getReactionEmote().getAsCodepoints().equals("U+1f346")) {
+                event.getTextChannel().clearReactionsById(event.getMessageIdLong()).queue();
+            }
         }
     }
 
