@@ -4,10 +4,13 @@ import bots.Bot;
 import bots.Command;
 import bots.Settings;
 import bots.manker.commands.*;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.requests.RestAction;
 
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class MankerBot extends Bot {
     private MessageAnalyzer analyzer;
@@ -33,8 +36,8 @@ public class MankerBot extends Bot {
     public void onMessageReceived(MessageReceivedEvent event) {
         super.onMessageReceived(event);
 
-        if (!this.isBot(event.getAuthor())) {
-            this.analyzer.checkSpecialCases(event);
+        if (!event.getAuthor().isBot()) {
+            this.cleanup(event);
         }
 
         if (!this.isBot(event.getAuthor()) && this.analyzer.hasMeanWords(event)) {
@@ -44,9 +47,27 @@ public class MankerBot extends Bot {
 
             event.getChannel().sendMessage(
                     "> Your message has been Jolified.\n" +
-                    "```Markdown\n" + message + "```- *" + event.getAuthor().getName() +
-                    "* at " + event.getMessage().getTimeCreated().atZoneSameInstant(ZoneId.of("Europe/Amsterdam")).format(DateTimeFormatter.ofPattern("HH:mm:ss"))
+                            "```Markdown\n" + message + "```- *" + event.getAuthor().getName() +
+                            "* at " + event.getMessage().getTimeCreated().atZoneSameInstant(ZoneId.of("Europe/Amsterdam")).format(DateTimeFormatter.ofPattern("HH:mm:ss"))
             ).queue();
+        }
+
+        if (!this.isBot(event.getAuthor())) {
+            this.analyzer.checkSpecialCases(event);
+        }
+    }
+
+    private void cleanup(MessageReceivedEvent event) {
+        RestAction<List<Message>> messageList = event.getChannel().getHistoryAfter(event.getMessageIdLong(), 5).complete().retrievePast(5);
+
+        for (Message message : messageList.complete()) {
+            if (message.getReactions().size() > 0 || message.isPinned()) {
+                continue;
+            }
+
+            if (message.getAuthor().isBot() || message.getContentRaw().contains(this.settings.getCommandPrefix())) {
+                message.delete().queue();
+            }
         }
     }
 }
